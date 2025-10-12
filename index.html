@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nice work</title>
+    <style>
+        /* Ensure the image fits within the width of the screen */
+        #thething {
+            max-width: 50%; /* Scale image down if it exceeds screen width */
+            height: auto;   /* Maintain aspect ratio */
+            display: block; /* Optional: Remove inline gaps caused by <img> */
+            margin: 0 auto; /* Optional: Center the image */
+        }
+    </style>
+  </head>
+  <body>
+    <p>Nice work, that's pretty good. But what's the image name (password)?</p>
+
+    <input type="text" id="userInput" placeholder="Input password here...">
+    
+    <button id="activateScript">Change the image path</button>
+
+    <p>If you're correct, an image should appear below.</p>
+
+    <img id="thething" src="placeholder.png">
+
+    <script>
+        document.getElementById('activateScript').addEventListener('click', function() {
+          const userInput = document.getElementById('userInput').value
+          const maybeImage = document.getElementById('thething')
+          maybeImage.src = `${userInput}.png`
+        })
+    </script>
+  </body>
+</html>

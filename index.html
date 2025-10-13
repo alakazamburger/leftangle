@@ -48,12 +48,25 @@
       
       document.getElementById('activateScript').addEventListener('click', function() {
         const name = document.getElementById('nameinput').value
-        const encodedcode = `${name}.txt`
+        
+        let encodedcode = ""
+        // crazy api stuff
+        async function loadcode() {
+          try {
+            const response = await fetch(`https://raw.githubusercontent.com/alakazamburger/leftangle/main/${name}.txt`)
+            encodedcode = await response.text()
+            console.log("code loaded: ", encodedcode)
+          } catch (err) {
+            console.error("error loading code: ", err)
+          }
+        }
+        loadcode()
+        
         const key = document.getElementById('keyinput').value
-        const maybecodep = document.getElementById('thething')
+        const maybecodehtml = document.getElementById('thething')
 
         const maybecode = decrypt(encodedcode, key)
-        maybecodep.innerHTML = maybecode
+        maybecodehtml.innerHTML = maybecode
       })
     </script>
   </body>

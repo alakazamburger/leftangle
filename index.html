@@ -3,32 +3,58 @@
   <head>
     <title>Nice work</title>
     <style>
-        /* Ensure the image fits within the width of the screen */
-        #thething {
-            max-width: 50%; /* Scale image down if it exceeds screen width */
-            height: auto;   /* Maintain aspect ratio */
-            display: block; /* Optional: Remove inline gaps caused by <img> */
-            margin: 0 auto; /* Optional: Center the image */
+        pre code {
+          font-family: Consolas, Monaco, "Courier New", monospace;
+          background-color: #f5f5f5;
+          padding: 10px;
+          border-radius: 6px;
+          display: block;
+          overflow-x: auto;
         }
     </style>
   </head>
   <body>
-    <p>Nice work, that's pretty good. But what's the image name (password)?</p>
+    <p>if you're a TRUE correlation chicken member, go ahead and put the name of the code (eg. 'rit1', 'rit2' etc) and the challenge-specific key</p>
 
-    <input type="text" id="userInput" placeholder="Input password here...">
+    <input type="text" id="nameinput" placeholder="input name here...">
+    <input type="text" id="keyinput" placeholder="input key here...">
     
-    <button id="activateScript">Change the image path</button>
+    <button id="activateScript">submit</button>
 
-    <p>If you're correct, an image should appear below.</p>
+    <p>if it's correct, the code will appear below:</p>
 
-    <img id="thething" src="placeholder.png">
+    <pre><code id="thething"></code></pre>
 
     <script>
-        document.getElementById('activateScript').addEventListener('click', function() {
-          const userInput = document.getElementById('userInput').value
-          const maybeImage = document.getElementById('thething')
-          maybeImage.src = `${userInput}.png`
-        })
+      function decrypt(encodedcode, key) {
+        // safety(copy+paste) unbase64
+        encodedcode = window.atob(encodedcode)
+        
+        // let's repeat the key first:
+        key = key.repeat(Math.ceil(encodedcode.length / key.length)) // long enough now!
+        
+        // now time to apply 'vinegar'
+        var endstr = ""
+        for (i = 0; i < key.length; i++) {
+          var unicoderesult = (encodedcode.charCodeAt(i) - key.charCodeAt(i) + 256) % 256
+          endstr += String.fromCharCode(unicoderesult)
+        }
+        
+        // unbase64
+        endstr = window.atob(endstr)
+        
+        return endstr
+      }
+      
+      document.getElementById('activateScript').addEventListener('click', function() {
+        const name = document.getElementById('nameinput').value
+        const encodedcode = `${name}.txt`
+        const key = document.getElementById('keyinput').value
+        const maybecodep = document.getElementById('thething')
+
+        const maybecode = decrypt(encodedcode, key)
+        maybecodep.innerHTML = maybecode
+      })
     </script>
   </body>
 </html>

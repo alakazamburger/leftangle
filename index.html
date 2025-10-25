@@ -31,20 +31,17 @@
       function decrypt(encodedcode, key) {
         // safety(copy+paste) unbase64
         encodedcode = window.atob(encodedcode)
-        
-        // let's repeat the key first:
-        key = key.repeat(Math.ceil(encodedcode.length / key.length)) // long enough now!
-        
+      
         // now time to apply 'vinegar'
         var endstr = ""
-        for (i = 0; i < key.length; i++) {
-          var unicoderesult = (encodedcode.charCodeAt(i) - key.charCodeAt(i) + 256) % 256
+        for (i = 0; i < encodedcode.length; i++) {
+          var unicoderesult = (encodedcode.charCodeAt(i) - key.charCodeAt(i % key.length)) % 256
           endstr += String.fromCharCode(unicoderesult)
         }
-        
+      
         // unbase64
         endstr = window.atob(endstr)
-        
+      
         return endstr
       }
       

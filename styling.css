@@ -1,0 +1,32 @@
+body {
+  background-color: #fe00e4;
+  color: #19ff02;
+}
+
+body, input, button, code {
+  font-family: Consolas, Monaco, "Courier New", monospace;
+}
+
+img {
+  image-rendering: pixelated;
+  height: 200px;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 6px;
+}
+
+h1, #mainbodytext {
+  text-align: center;
+}
+
+pre code {
+  color: #8bff80;
+  background-color: #ff6ef0;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 20px;
+  border-radius: 6px;
+  display: block;
+  overflow-x: auto;
+}
